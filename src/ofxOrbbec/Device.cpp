@@ -53,7 +53,7 @@ namespace ofxOrbbec {
 			this->incomingFrameTimes.push(chrono::high_resolution_clock::now());
 			if (this->incomingFrameTimes.size() >= 2) {
 				const auto duration = this->incomingFrameTimes.back() - this->incomingFrameTimes.front();
-				this->frameRate = (float) this->incomingFrameTimes.size() * 1e6 / chrono::duration_cast<chrono::microseconds>(duration).count();
+				this->frameRate = (float) (this->incomingFrameTimes.size() - 1) * 1e6 / chrono::duration_cast<chrono::microseconds>(duration).count();
 			}
 			while (incomingFrameTimes.size() > 2) {
 				incomingFrameTimes.pop();

@@ -47,5 +47,11 @@
     <ClCompile Include="..\src\ofxOrbbec\Streams\Skeleton.cpp">
       <Filter>src\ofxOrbbec\Streams</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\ofxOrbbec\Converters.cpp">
+      <Filter>src\ofxOrbbec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ofxOrbbec\Streams\Points.cpp">
+      <Filter>src\ofxOrbbec\Streams</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

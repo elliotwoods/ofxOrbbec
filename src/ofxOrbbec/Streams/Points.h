@@ -9,10 +9,15 @@ namespace ofxOrbbec {
 			StreamType getType() const override {
 				return StreamType::PointStreamType;
 			}
+
+			void update() override;
+			const ofMesh & getMesh();
 		protected:
 			int getNumChannels() override {
 				return 3;
 			}
+
+			ofMesh mesh;
 		};
 	}
 }

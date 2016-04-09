@@ -23,8 +23,16 @@ namespace ofxOrbbec {
 			//Warning : these functions are not safe to call until you've called init...
 			void enableUpscaling(bool);
 			bool getUpscalingEnabled() const;
+
 			ofPixels getUserMask(bool copy = false) const;
 			ofPixels getLabelsImage(bool copy = false) const;
+
+			os::joint_map_type getJointsRaw() const;
+
+			void drawSkeleton2D() const;
+			void drawSkeleton3D() const;
+
+			static const vector<pair<os::joint_type, os::joint_type>> & getBonesAtlas();
 			
 		protected:
 			void newFrameArrived(astra::frame &) override;

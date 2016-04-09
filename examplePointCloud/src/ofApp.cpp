@@ -3,56 +3,30 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
 	this->astra.open();
-	this->astra.initDepth();
 	this->astra.initPoints();
-	this->astra.initSkeleton();
+
+	this->camera.setPosition(2000, 1000, 0);
+	this->camera.lookAt(ofVec3f(0, 0, 3000));
 }
 
 //--------------------------------------------------------------
-void ofApp::update(){
+void ofApp::update() {
 	this->astra.update();
-	if (this->astra.isFrameNew()) {
-		{
-			auto pixels = this->astra.getSkeleton()->getUserMask();
-			for (auto & pixel : pixels) {
-				pixel *= 255;
-			}
-			this->userMask.loadData(pixels);
-		}
-		{
-			auto pixels = this->astra.getSkeleton()->getLabelsImage();
-			for (auto & pixel : pixels) {
-				pixel *= 16;
-			}
-			this->labels.loadData(pixels);
-		}
-	}
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-	if (this->userMask.isAllocated()) {
-		this->userMask.draw(0, 0);
-	}
-	if (this->labels.isAllocated()) {
-		this->labels.draw(640, 0);
-	}
+	ofBackgroundGradient(40, 0);
 
-	ofPushStyle();
+	this->camera.begin();
 	{
-		ofSetLineWidth(3.0f);
-		ofSetColor(0);
-		this->astra.getSkeleton()->drawSkeleton2D();
-
-		ofSetLineWidth(1.0f);
-		ofSetColor(255);
-		this->astra.getSkeleton()->drawSkeleton2D();
+		ofDrawGrid(1000.0f, 10, true, false);
+		this->astra.getPoints()->getMesh().drawVertices();
 	}
-	ofPopStyle();
+	this->camera.end();
 
-	this->astra.getPoints()->draw(0, 480);
-	ofDrawBitmapStringHighlight("Application : " + ofToString(ofGetFrameRate()) + "fps", 650, 500);
-	ofDrawBitmapStringHighlight("Device : " + ofToString(this->astra.getFrameRate()) + "fps", 650, 530);
+	ofDrawBitmapStringHighlight("Application : " + ofToString(ofGetFrameRate()) + "fps", 20, 30);
+	ofDrawBitmapStringHighlight("Device : " + ofToString(this->astra.getFrameRate()) + "fps", 20, 60);
 }
 
 //--------------------------------------------------------------

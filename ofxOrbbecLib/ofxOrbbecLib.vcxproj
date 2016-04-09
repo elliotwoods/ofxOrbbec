@@ -29,8 +29,10 @@
     <ClInclude Include="..\src\ofxOrbbec\Streams\Skeleton.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\ofxOrbbec\Converters.cpp" />
     <ClCompile Include="..\src\ofxOrbbec\Device.cpp" />
     <ClCompile Include="..\src\ofxOrbbec\Streams\Base.cpp" />
+    <ClCompile Include="..\src\ofxOrbbec\Streams\Points.cpp" />
     <ClCompile Include="..\src\ofxOrbbec\Streams\Skeleton.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

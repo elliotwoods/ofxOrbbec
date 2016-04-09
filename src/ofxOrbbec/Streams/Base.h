@@ -50,7 +50,7 @@ namespace ofxOrbbec {
 		class TemplateBaseImage : public BaseImage, public ofBaseHasPixels_<PixelsType> {
 		public:
 			void init(astra::stream_reader & streamReader) override;
-			void update() override;
+			virtual void update() override;
 
 			float getHeight() const override;
 			float getWidth() const override;
