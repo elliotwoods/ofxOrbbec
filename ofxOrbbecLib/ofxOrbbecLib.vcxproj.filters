@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{212255e0-df04-4747-8bc3-f00de9c45829}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ofxOrbbec">
+      <UniqueIdentifier>{a3ca07fa-e3d1-406e-b42b-e2ac01aed506}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ofxOrbbec\Streams">
+      <UniqueIdentifier>{ef34c2da-0df3-4563-b53a-7e00db0d97e0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\ofxOrbbec.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ofxOrbbec\Streams\Base.h">
+      <Filter>src\ofxOrbbec\Streams</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ofxOrbbec\Device.h">
+      <Filter>src\ofxOrbbec</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ofxOrbbec\Streams\Color.h">
+      <Filter>src\ofxOrbbec\Streams</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ofxOrbbec\Streams\Depth.h">
+      <Filter>src\ofxOrbbec\Streams</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ofxOrbbec\Streams\Points.h">
+      <Filter>src\ofxOrbbec\Streams</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\ofxOrbbec\Streams\Base.cpp">
+      <Filter>src\ofxOrbbec\Streams</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ofxOrbbec\Device.cpp">
+      <Filter>src\ofxOrbbec</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
