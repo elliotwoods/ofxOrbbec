@@ -9,18 +9,28 @@ namespace ofxOrbbec {
 	class Device;
 
 	namespace Streams {
-		enum Type {
+		enum StreamType {
 			ColorStreamType,
 			DepthStreamType,
-			PointStreamType
+			PointStreamType,
+			SkeletonStreamType
 		};
 
-		class Base : public ofBaseHasTexture, public ofBaseDraws {
+		class Base {
 		public:
-			virtual Type getType() const = 0;
+			virtual StreamType getType() const = 0;
+			virtual void init(astra::stream_reader & streamReader) = 0;
 			virtual void update() = 0;
 			bool isFrameNew();
+		protected:
+			friend Device;
+			virtual void newFrameArrived(astra::frame &) = 0;
+			bool hasData = false;
+			bool frameNew = false;
+		};
 
+		class BaseImage : public Base, public ofBaseHasTexture, public ofBaseDraws {
+		public:
 			ofTexture & getTexture();
 			const ofTexture & getTexture() const override;
 			void setUseTexture(bool bUseTex) override;
@@ -32,19 +42,14 @@ namespace ofxOrbbec {
 			void draw(const ofRectangle &) const override;
 			void draw(const ofPoint &, float w, float h) const override;
 		protected:
-			friend Device;
-			virtual void newFrameArrived(astra::frame &) = 0;
 			ofTexture texture;
 			bool useTexture = true;
-
-			bool hasData = false;
-			bool frameNew = false;
 		};
 
 		template<typename StreamType, typename FrameType, typename PixelsType>
-		class TemplateBase : public Base, public ofBaseHasPixels_<PixelsType> {
+		class TemplateBaseImage : public BaseImage, public ofBaseHasPixels_<PixelsType> {
 		public:
-			void init(astra::stream_reader & streamReader);
+			void init(astra::stream_reader & streamReader) override;
 			void update() override;
 
 			float getHeight() const override;
@@ -52,6 +57,8 @@ namespace ofxOrbbec {
 
 			ofPixels_<PixelsType> & getPixels() override;
 			const ofPixels_<PixelsType> & getPixels() const override;
+
+			StreamType & getStream();
 		protected:
 			virtual int getNumChannels() = 0;
 			void newFrameArrived(astra::frame &) override;

@@ -4,10 +4,10 @@
 
 namespace ofxOrbbec {
 	namespace Streams {
-		class Color : public TemplateBase<astra::colorstream, astra::colorframe, unsigned char> {
+		class Color : public TemplateBaseImage<astra::colorstream, astra::colorframe, unsigned char> {
 		public:
-			Type getType() const override {
-				return Type::ColorStreamType;
+			StreamType getType() const override {
+				return StreamType::ColorStreamType;
 			}
 		protected:
 			int getNumChannels() override {

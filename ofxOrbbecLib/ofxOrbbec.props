@@ -5,7 +5,7 @@
   <PropertyGroup />
   <ItemDefinitionGroup>
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\..\addons\ofxOrbbec\src;..\..\..\addons\ofxOrbbec\libs\astra-sdk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\addons\ofxOrbbec\src;..\..\..\addons\ofxOrbbec\libs\astra-sdk\include;..\..\..\addons\ofxOrbbec\libs\libskeleton\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup />

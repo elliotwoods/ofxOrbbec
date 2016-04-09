@@ -4,10 +4,10 @@
 
 namespace ofxOrbbec {
 	namespace Streams {
-		class Points : public TemplateBase<astra::pointstream, astra::pointframe, float> {
+		class Points : public TemplateBaseImage<astra::pointstream, astra::pointframe, float> {
 		public:
-			Type getType() const override {
-				return Type::PointStreamType;
+			StreamType getType() const override {
+				return StreamType::PointStreamType;
 			}
 		protected:
 			int getNumChannels() override {

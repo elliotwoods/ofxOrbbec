@@ -4,7 +4,10 @@
 namespace ofxOrbbec {
 	//----------
 	Device::Device() {
-		astra::initialize();
+		auto status = astra::initialize();
+		if (status != ASTRA_STATUS_SUCCESS) {
+			ofLogError("ofxOrbbec") << "Initialise failed with error code " << (int)status;
+		}
 	}
 
 	//----------
@@ -34,6 +37,11 @@ namespace ofxOrbbec {
 	}
 
 	//----------
+	shared_ptr<Streams::Skeleton> Device::initSkeleton() {
+		return this->init<Streams::Skeleton>();
+	}
+
+	//----------
 	void Device::update() {
 		astra_temp_update();
 		for (auto stream : this->streams) {
@@ -47,7 +55,7 @@ namespace ofxOrbbec {
 				const auto duration = this->incomingFrameTimes.back() - this->incomingFrameTimes.front();
 				this->frameRate = (float) this->incomingFrameTimes.size() * 1e6 / chrono::duration_cast<chrono::microseconds>(duration).count();
 			}
-			while (incomingFrameTimes.size() > 10) {
+			while (incomingFrameTimes.size() > 2) {
 				incomingFrameTimes.pop();
 			}
 		}
@@ -81,6 +89,11 @@ namespace ofxOrbbec {
 	//----------
 	shared_ptr<Streams::Points> Device::getPoints() {
 		return this->get<Streams::Points>();
+	}
+
+	//----------
+	shared_ptr<Streams::Skeleton> Device::getSkeleton() {
+		return this->get<Streams::Skeleton>();
 	}
 
 	//----------

@@ -20,15 +20,18 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\ofxOrbbec.h" />
+    <ClInclude Include="..\src\ofxOrbbec\Converters.h" />
     <ClInclude Include="..\src\ofxOrbbec\Device.h" />
     <ClInclude Include="..\src\ofxOrbbec\Streams\Base.h" />
     <ClInclude Include="..\src\ofxOrbbec\Streams\Color.h" />
     <ClInclude Include="..\src\ofxOrbbec\Streams\Depth.h" />
     <ClInclude Include="..\src\ofxOrbbec\Streams\Points.h" />
+    <ClInclude Include="..\src\ofxOrbbec\Streams\Skeleton.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\ofxOrbbec\Device.cpp" />
     <ClCompile Include="..\src\ofxOrbbec\Streams\Base.cpp" />
+    <ClCompile Include="..\src\ofxOrbbec\Streams\Skeleton.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{6891a0b0-ad9e-4042-909d-1b5fdb4a3e39}</ProjectGuid>

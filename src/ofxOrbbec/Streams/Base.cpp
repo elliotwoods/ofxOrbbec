@@ -8,64 +8,65 @@ namespace ofxOrbbec {
 			return this->frameNew;
 		}
 
+#pragma mark BaseImage
 		//----------
-		ofTexture & Base::getTexture() {
+		ofTexture & BaseImage::getTexture() {
 			return this->texture;
 		}
 
 		//----------
-		const ofTexture & Base::getTexture() const {
+		const ofTexture & BaseImage::getTexture() const {
 			return this->texture;
 		}
 
 		//----------
-		void Base::setUseTexture(bool bUseTex) {
+		void BaseImage::setUseTexture(bool bUseTex) {
 			this->useTexture = bUseTex;
 		}
 
 		//----------
-		bool Base::isUsingTexture() const {
+		bool BaseImage::isUsingTexture() const {
 			return this->useTexture;
 		}
 
 		//----------
-		void Base::draw(float x, float y) const {
+		void BaseImage::draw(float x, float y) const {
 			ofBaseDraws::draw(x, y);
 		}
 
 		//----------
-		void Base::draw(float x, float y, float w, float h) const {
+		void BaseImage::draw(float x, float y, float w, float h) const {
 			if (this->hasData) {
 				this->texture.draw(x, y, w, h);
 			}
 		}
 
 		//----------
-		void Base::draw(const ofPoint & point) const {
+		void BaseImage::draw(const ofPoint & point) const {
 			ofBaseDraws::draw(point);
 		}
 
 		//----------
-		void Base::draw(const ofRectangle & rectangle) const {
+		void BaseImage::draw(const ofRectangle & rectangle) const {
 			ofBaseDraws::draw(rectangle);
 		}
 
 		//----------
-		void Base::draw(const ofPoint & point, float w, float h) const {
+		void BaseImage::draw(const ofPoint & point, float w, float h) const {
 			ofBaseDraws::draw(point, w, h);
 		}
 
-#pragma mark TemplateBase
+#pragma mark TemplateBaseImage
 		//----------
 		template<typename StreamType, typename FrameType, typename PixelsType>
-		void TemplateBase<StreamType, FrameType, PixelsType>::init(astra::stream_reader & streamReader) {
+		void TemplateBaseImage<StreamType, FrameType, PixelsType>::init(astra::stream_reader & streamReader) {
 			this->stream = &streamReader.stream<StreamType>();
 			this->stream->start();
 		}
 
 		//----------
 		template<typename StreamType, typename FrameType, typename PixelsType>
-		void TemplateBase<StreamType, FrameType, PixelsType>::update() {
+		void TemplateBaseImage<StreamType, FrameType, PixelsType>::update() {
 			if (this->newFrameIncoming) {
 				this->lockIncomingPixels.lock();
 				{
@@ -87,31 +88,38 @@ namespace ofxOrbbec {
 		
 		//----------
 		template<typename StreamType, typename FrameType, typename PixelsType>
-		float TemplateBase<StreamType, FrameType, PixelsType>::getHeight() const {
+		float TemplateBaseImage<StreamType, FrameType, PixelsType>::getHeight() const {
 			return this->pixels.getHeight();
 		}
 
 		//----------
 		template<typename StreamType, typename FrameType, typename PixelsType>
-		float TemplateBase<StreamType, FrameType, PixelsType>::getWidth() const {
+		float TemplateBaseImage<StreamType, FrameType, PixelsType>::getWidth() const {
 			return this->pixels.getWidth();
 		}
 
 		//----------
 		template<typename StreamType, typename FrameType, typename PixelsType>
-		ofPixels_<PixelsType> & TemplateBase<StreamType, FrameType, PixelsType>::getPixels() {
+		ofPixels_<PixelsType> & TemplateBaseImage<StreamType, FrameType, PixelsType>::getPixels() {
 			return this->pixels;
 		}
 
 		//----------
 		template<typename StreamType, typename FrameType, typename PixelsType>
-		const ofPixels_<PixelsType> & TemplateBase<StreamType, FrameType, PixelsType>::getPixels() const {
+		const ofPixels_<PixelsType> & TemplateBaseImage<StreamType, FrameType, PixelsType>::getPixels() const {
 			return this->pixels;
+		}
+
+
+		//----------
+		template<typename StreamType, typename FrameType, typename PixelsType>
+		StreamType & ofxOrbbec::Streams::TemplateBaseImage<StreamType, FrameType, PixelsType>::getStream() {
+			return * this->stream;
 		}
 
 		//----------
 		template<typename StreamType, typename FrameType, typename PixelsType>
-		void TemplateBase<StreamType, FrameType, PixelsType>::newFrameArrived(astra::frame & frame) {
+		void TemplateBaseImage<StreamType, FrameType, PixelsType>::newFrameArrived(astra::frame & frame) {
 			auto ourFrame = frame.get<FrameType>();
 			if (ourFrame.is_valid()) {
 				this->lockIncomingPixels.lock();
@@ -124,8 +132,8 @@ namespace ofxOrbbec {
 		}
 
 		//---------
-		template class TemplateBase<astra::colorstream, astra::colorframe, unsigned char>;
-		template class TemplateBase<astra::depthstream, astra::depthframe, unsigned short>;
-		template class TemplateBase<astra::pointstream, astra::pointframe, float>;
+		template class TemplateBaseImage<astra::colorstream, astra::colorframe, unsigned char>;
+		template class TemplateBaseImage<astra::depthstream, astra::depthframe, unsigned short>;
+		template class TemplateBaseImage<astra::pointstream, astra::pointframe, float>;
 	}
 }

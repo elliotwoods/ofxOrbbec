@@ -4,10 +4,10 @@
 
 namespace ofxOrbbec {
 	namespace Streams {
-		class Depth : public TemplateBase<astra::depthstream, astra::depthframe, unsigned short> {
+		class Depth : public TemplateBaseImage<astra::depthstream, astra::depthframe, unsigned short> {
 		public:
-			Type getType() const override {
-				return Type::DepthStreamType;
+			StreamType getType() const override {
+				return StreamType::DepthStreamType;
 			}
 		protected:
 			int getNumChannels() override {

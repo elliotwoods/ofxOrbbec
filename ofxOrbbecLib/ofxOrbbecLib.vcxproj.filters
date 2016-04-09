@@ -30,6 +30,12 @@
     <ClInclude Include="..\src\ofxOrbbec\Streams\Points.h">
       <Filter>src\ofxOrbbec\Streams</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\ofxOrbbec\Streams\Skeleton.h">
+      <Filter>src\ofxOrbbec\Streams</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ofxOrbbec\Converters.h">
+      <Filter>src\ofxOrbbec</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\ofxOrbbec\Streams\Base.cpp">
@@ -37,6 +43,9 @@
     </ClCompile>
     <ClCompile Include="..\src\ofxOrbbec\Device.cpp">
       <Filter>src\ofxOrbbec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ofxOrbbec\Streams\Skeleton.cpp">
+      <Filter>src\ofxOrbbec\Streams</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

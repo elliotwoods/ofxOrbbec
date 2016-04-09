@@ -4,6 +4,7 @@
 #include "Streams/Color.h"
 #include "Streams/Depth.h"
 #include "Streams/Points.h"
+#include "Streams/Skeleton.h"
 
 #include "astra/astra.hpp"
 
@@ -40,6 +41,7 @@ namespace ofxOrbbec {
 		shared_ptr<Streams::Color> initColor();
 		shared_ptr<Streams::Depth> initDepth();
 		shared_ptr<Streams::Points> initPoints();
+		shared_ptr<Streams::Skeleton> initSkeleton();
 		
 		void update();
 		bool isFrameNew() const;
@@ -62,6 +64,7 @@ namespace ofxOrbbec {
 		shared_ptr<Streams::Color> getColor();
 		shared_ptr<Streams::Depth> getDepth();
 		shared_ptr<Streams::Points> getPoints();
+		shared_ptr<Streams::Skeleton> getSkeleton();
 		vector<shared_ptr<Streams::Base>> getStreams();
 
 	protected:
