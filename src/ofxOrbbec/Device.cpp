@@ -32,6 +32,11 @@ namespace ofxOrbbec {
 	}
 
 	//----------
+	shared_ptr<Streams::Infrared> Device::initInfrared() {
+		return this->init<Streams::Infrared>();
+	}
+
+	//----------
 	shared_ptr<Streams::Points> Device::initPoints() {
 		return this->init<Streams::Points>();
 	}
@@ -87,6 +92,11 @@ namespace ofxOrbbec {
 	}
 
 	//----------
+	shared_ptr<Streams::Infrared> Device::getInfrared() {
+		return this->get<Streams::Infrared>();
+	}
+
+	//----------
 	shared_ptr<Streams::Points> Device::getPoints() {
 		return this->get<Streams::Points>();
 	}
@@ -106,5 +116,30 @@ namespace ofxOrbbec {
 		for (auto stream : this->streams) {
 			stream->newFrameArrived(frame);
 		}
+	}
+
+	//----------
+	void Device::closeColor() {
+		this->close<Streams::Color>();
+	}
+
+	//----------
+	void Device::closeDepth() {
+		this->close<Streams::Depth>();
+	}
+
+	//----------
+	void Device::closeInfrared() {
+		this->close<Streams::Infrared>();
+	}
+
+	//----------
+	void Device::closePoints() {
+		this->close<Streams::Points>();
+	}
+
+	//----------
+	void Device::closeSkeleton() {
+		this->close<Streams::Skeleton>();
 	}
 }

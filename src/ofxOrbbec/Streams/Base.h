@@ -3,6 +3,8 @@
 #include "ofBaseTypes.h"
 #include "ofTexture.h"
 
+#include "../Converters.h"
+
 #include "astra/astra.hpp"
 
 namespace ofxOrbbec {
@@ -13,6 +15,7 @@ namespace ofxOrbbec {
 		public:
 			virtual string getTypeName() const = 0;
 			virtual void init(astra::stream_reader & streamReader) = 0;
+			virtual void close() = 0;
 			virtual void update() = 0;
 			bool isFrameNew();
 		protected:
@@ -42,7 +45,9 @@ namespace ofxOrbbec {
 		template<typename StreamType, typename FrameType, typename PixelsType>
 		class TemplateBaseImage : public BaseImage, public ofBaseHasPixels_<PixelsType> {
 		public:
+			~TemplateBaseImage();
 			void init(astra::stream_reader & streamReader) override;
+			void close() override;
 			virtual void update() override;
 
 			float getHeight() const override;
@@ -51,17 +56,17 @@ namespace ofxOrbbec {
 			ofPixels_<PixelsType> & getPixels() override;
 			const ofPixels_<PixelsType> & getPixels() const override;
 
-			StreamType & getStream();
+			StreamType getStream();
 		protected:
 			virtual int getNumChannels() = 0;
 			void newFrameArrived(astra::frame &) override;
 
-			StreamType * stream = nullptr;
+			unique_ptr<StreamType> stream;
 			ofPixels_<PixelsType> pixels;
 
 			mutex lockIncomingPixels;
 			ofPixels_<PixelsType> incomingPixels;
 			bool newFrameIncoming = false;
 		};
-	}
+}
 }

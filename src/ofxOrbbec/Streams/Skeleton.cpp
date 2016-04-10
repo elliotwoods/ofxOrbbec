@@ -10,6 +10,11 @@ namespace ofxOrbbec {
 		}
 
 		//----------
+		Skeleton::~Skeleton() {
+			this->close();
+		}
+
+		//----------
 		string Skeleton::getTypeName() const {
 			return "Skeleton";
 		}
@@ -22,6 +27,11 @@ namespace ofxOrbbec {
 			}
 			this->bodyTracker = make_shared<os::body_tracker>(60.0f, 49.5, 160, 120);
 			this->bodyTracker->set_classifier(os::load_classifier(ofToDataPath("../orbbec.classifier").c_str()));
+		}
+
+		//----------
+		void Skeleton::close() {
+			this->bodyTracker.reset();
 		}
 
 		//----------
@@ -70,6 +80,10 @@ namespace ofxOrbbec {
 
 		//----------
 		os::joint_map_type Skeleton::getJointsRaw() const {
+#ifdef _DEBUG
+			ofLogWarning("ofxOrbbec") << "getJointsRaw is only supported in Release builds. Really sorry! It just crashes otherwise... :(";
+			return os::joint_map_type();
+#endif
 			return this->bodyTracker->joints();
 		}
 
@@ -81,11 +95,10 @@ namespace ofxOrbbec {
 			{
 				ofScale(1, 1, 0); // flatten depth away
 				for (auto bone : bonesAtlas) {
-					const auto & firstJoint = joints.at(bone.first);
-					const auto & secondJoint = joints.at(bone.second);
-
-					if (firstJoint.status == os::tracking_status::tracked && secondJoint.status == os::tracking_status::tracked) {
-						ofLine(toOf(firstJoint.depth_position), toOf(secondJoint.depth_position));
+					const auto & firstJoint = joints.find(bone.first);
+					const auto & secondJoint = joints.find(bone.second);
+					if (firstJoint != joints.end() && secondJoint != joints.end()) {
+						ofLine(toOf(firstJoint->second.depth_position), toOf(secondJoint->second.depth_position));
 					}
 				}
 			}
@@ -97,9 +110,11 @@ namespace ofxOrbbec {
 			const auto & joints = this->getJointsRaw();
 			const auto & bonesAtlas = getBonesAtlas();
 			for (auto bone : bonesAtlas) {
-				const auto & firstJoint = joints.at(bone.first);
-				const auto & secondJoint = joints.at(bone.second);
-				ofLine(toOf(firstJoint.world_position), toOf(secondJoint.world_position));
+				const auto & firstJoint = joints.find(bone.first);
+				const auto & secondJoint = joints.find(bone.second);
+				if (firstJoint != joints.end() && secondJoint != joints.end()) {
+					ofLine(toOf(firstJoint->second.world_position), toOf(secondJoint->second.world_position));
+				}
 			}
 		}
 

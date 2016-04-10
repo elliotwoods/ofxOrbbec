@@ -25,6 +25,7 @@
     <ClInclude Include="..\src\ofxOrbbec\Streams\Base.h" />
     <ClInclude Include="..\src\ofxOrbbec\Streams\Color.h" />
     <ClInclude Include="..\src\ofxOrbbec\Streams\Depth.h" />
+    <ClInclude Include="..\src\ofxOrbbec\Streams\Infrared.h" />
     <ClInclude Include="..\src\ofxOrbbec\Streams\Points.h" />
     <ClInclude Include="..\src\ofxOrbbec\Streams\Skeleton.h" />
   </ItemGroup>
@@ -32,6 +33,8 @@
     <ClCompile Include="..\src\ofxOrbbec\Converters.cpp" />
     <ClCompile Include="..\src\ofxOrbbec\Device.cpp" />
     <ClCompile Include="..\src\ofxOrbbec\Streams\Base.cpp" />
+    <ClCompile Include="..\src\ofxOrbbec\Streams\Depth.cpp" />
+    <ClCompile Include="..\src\ofxOrbbec\Streams\Infrared.cpp" />
     <ClCompile Include="..\src\ofxOrbbec\Streams\Points.cpp" />
     <ClCompile Include="..\src\ofxOrbbec\Streams\Skeleton.cpp" />
   </ItemGroup>

@@ -3,6 +3,7 @@
 #include "Streams/Base.h"
 #include "Streams/Color.h"
 #include "Streams/Depth.h"
+#include "Streams/Infrared.h"
 #include "Streams/Points.h"
 #include "Streams/Skeleton.h"
 
@@ -40,9 +41,29 @@ namespace ofxOrbbec {
 		}
 		shared_ptr<Streams::Color> initColor();
 		shared_ptr<Streams::Depth> initDepth();
+		shared_ptr<Streams::Infrared> initInfrared();
 		shared_ptr<Streams::Points> initPoints();
 		shared_ptr<Streams::Skeleton> initSkeleton();
 		
+		template<typename StreamType>
+		void close() {
+			for (auto it = this->streams.begin(); it != this->streams.end(); ) {
+				auto typedStream = dynamic_pointer_cast<StreamType>(*it);
+				if (typedStream) {
+					it->reset();
+					it = this->streams.erase(it);
+				}
+				else {
+					it++;
+				}
+			}
+		}
+		void closeColor();
+		void closeDepth();
+		void closeInfrared();
+		void closePoints();
+		void closeSkeleton();
+
 		void update();
 		bool isFrameNew() const;
 		float getFrameRate() const;
@@ -63,6 +84,7 @@ namespace ofxOrbbec {
 
 		shared_ptr<Streams::Color> getColor();
 		shared_ptr<Streams::Depth> getDepth();
+		shared_ptr<Streams::Infrared> getInfrared();
 		shared_ptr<Streams::Points> getPoints();
 		shared_ptr<Streams::Skeleton> getSkeleton();
 		vector<shared_ptr<Streams::Base>> getStreams();

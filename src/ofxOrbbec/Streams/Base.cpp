@@ -59,9 +59,24 @@ namespace ofxOrbbec {
 #pragma mark TemplateBaseImage
 		//----------
 		template<typename StreamType, typename FrameType, typename PixelsType>
+		ofxOrbbec::Streams::TemplateBaseImage<StreamType, FrameType, PixelsType>::~TemplateBaseImage() {
+			this->close();
+		}
+
+		//----------
+		template<typename StreamType, typename FrameType, typename PixelsType>
 		void TemplateBaseImage<StreamType, FrameType, PixelsType>::init(astra::stream_reader & streamReader) {
-			this->stream = &streamReader.stream<StreamType>();
+			this->stream = make_unique<StreamType>(streamReader.stream<StreamType>());
 			this->stream->start();
+		}
+
+		//----------
+		template<typename StreamType, typename FrameType, typename PixelsType>
+		void ofxOrbbec::Streams::TemplateBaseImage<StreamType, FrameType, PixelsType>::close() {
+			if (this->stream) {
+				this->stream->stop();
+				this->stream.reset();
+			}
 		}
 
 		//----------
@@ -113,7 +128,7 @@ namespace ofxOrbbec {
 
 		//----------
 		template<typename StreamType, typename FrameType, typename PixelsType>
-		StreamType & ofxOrbbec::Streams::TemplateBaseImage<StreamType, FrameType, PixelsType>::getStream() {
+		StreamType ofxOrbbec::Streams::TemplateBaseImage<StreamType, FrameType, PixelsType>::getStream() {
 			return * this->stream;
 		}
 
@@ -134,6 +149,7 @@ namespace ofxOrbbec {
 		//---------
 		template class TemplateBaseImage<astra::colorstream, astra::colorframe, unsigned char>;
 		template class TemplateBaseImage<astra::depthstream, astra::depthframe, unsigned short>;
+		template class TemplateBaseImage<astra::infraredstream, astra::infraredframe_16, unsigned short>;
 		template class TemplateBaseImage<astra::pointstream, astra::pointframe, float>;
 	}
 }

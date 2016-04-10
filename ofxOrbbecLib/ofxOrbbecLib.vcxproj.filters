@@ -36,6 +36,9 @@
     <ClInclude Include="..\src\ofxOrbbec\Converters.h">
       <Filter>src\ofxOrbbec</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\ofxOrbbec\Streams\Infrared.h">
+      <Filter>src\ofxOrbbec\Streams</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\ofxOrbbec\Streams\Base.cpp">
@@ -51,6 +54,12 @@
       <Filter>src\ofxOrbbec</Filter>
     </ClCompile>
     <ClCompile Include="..\src\ofxOrbbec\Streams\Points.cpp">
+      <Filter>src\ofxOrbbec\Streams</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ofxOrbbec\Streams\Infrared.cpp">
+      <Filter>src\ofxOrbbec\Streams</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ofxOrbbec\Streams\Depth.cpp">
       <Filter>src\ofxOrbbec\Streams</Filter>
     </ClCompile>
   </ItemGroup>

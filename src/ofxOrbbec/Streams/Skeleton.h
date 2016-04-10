@@ -13,9 +13,11 @@ namespace ofxOrbbec {
 		class Skeleton : public Base {
 		public:
 			Skeleton();
+			~Skeleton();
 
 			string getTypeName() const override;
 			void init(astra::stream_reader & streamReader) override;
+			void close() override;
 			void update() override;
 
 			shared_ptr<os::body_tracker> getBodyTracker();
