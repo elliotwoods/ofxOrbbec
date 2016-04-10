@@ -10,8 +10,8 @@ namespace ofxOrbbec {
 		}
 
 		//----------
-		ofxOrbbec::Streams::StreamType Skeleton::getType() const {
-			return StreamType::SkeletonStreamType;
+		string Skeleton::getTypeName() const {
+			return "Skeleton";
 		}
 
 		//----------

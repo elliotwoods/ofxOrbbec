@@ -6,8 +6,8 @@ namespace ofxOrbbec {
 	namespace Streams {
 		class Points : public TemplateBaseImage<astra::pointstream, astra::pointframe, float> {
 		public:
-			StreamType getType() const override {
-				return StreamType::PointStreamType;
+			string getTypeName() const override {
+				return "Points";
 			}
 
 			void update() override;

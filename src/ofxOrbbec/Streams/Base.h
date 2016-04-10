@@ -9,16 +9,9 @@ namespace ofxOrbbec {
 	class Device;
 
 	namespace Streams {
-		enum StreamType {
-			ColorStreamType,
-			DepthStreamType,
-			PointStreamType,
-			SkeletonStreamType
-		};
-
 		class Base {
 		public:
-			virtual StreamType getType() const = 0;
+			virtual string getTypeName() const = 0;
 			virtual void init(astra::stream_reader & streamReader) = 0;
 			virtual void update() = 0;
 			bool isFrameNew();

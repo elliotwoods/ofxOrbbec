@@ -14,7 +14,7 @@ namespace ofxOrbbec {
 		public:
 			Skeleton();
 
-			StreamType getType() const override;
+			string getTypeName() const override;
 			void init(astra::stream_reader & streamReader) override;
 			void update() override;
 
