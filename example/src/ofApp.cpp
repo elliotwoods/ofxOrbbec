@@ -1,9 +1,10 @@
 #include "ofApp.h"
 
 //--------------------------------------------------------------
-void ofApp::setup(){
+void ofApp::setup() {
 	this->astra.open();
 	this->astra.initColor();
+	//this->astra.initInfrared(); //only the color OR the infrared can be enabled (not both)
 	this->astra.initDepth();
 	this->astra.initPoints();
 }
@@ -16,10 +17,11 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
 	this->astra.getColor()->draw(0, 0);
+	//this->astra.getInfrared()->draw(0, 0);
 	this->astra.getDepth()->draw(640, 0);
-	this->astra.getPoints()->draw(0, 480);
-	ofDrawBitmapStringHighlight("Application : " + ofToString(ofGetFrameRate()) + "fps", 650, 500);
-	ofDrawBitmapStringHighlight("Device : " + ofToString(this->astra.getFrameRate()) + "fps", 650, 530);
+	this->astra.getPoints()->draw(640, 480);
+	ofDrawBitmapStringHighlight("Application : " + ofToString(ofGetFrameRate()) + "fps", 10, 30);
+	ofDrawBitmapStringHighlight("Device : " + ofToString(this->astra.getFrameRate()) + "fps", 10, 60);
 }
 
 //--------------------------------------------------------------
