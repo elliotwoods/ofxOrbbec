@@ -21,6 +21,7 @@ namespace ofxOrbbec {
 			void update() override;
 
 			shared_ptr<os::body_tracker> getBodyTracker();
+			void setBodyTrackerResolution(int width, int height);
 
 			//Warning : these functions are not safe to call until you've called init...
 			void enableUpscaling(bool);
@@ -28,6 +29,7 @@ namespace ofxOrbbec {
 
 			ofPixels getUserMask(bool copy = false) const;
 			ofPixels getLabelsImage(bool copy = false) const;
+			ofPixels getProbabilityMap(uint8_t labelIndex, float scaleOutput = 255.0f);
 
 			os::joint_map_type getJointsRaw() const;
 

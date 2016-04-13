@@ -26,6 +26,9 @@ void ofApp::update(){
 			}
 			this->labels.loadData(pixels);
 		}
+		{
+			this->probability.loadData(this->astra.getSkeleton()->getProbabilityMap(labelIndex));
+		}
 	}
 }
 
@@ -51,8 +54,10 @@ void ofApp::draw(){
 	ofPopStyle();
 
 	this->astra.getPoints()->draw(0, 480);
+	this->probability.draw(640, 480, 640, 480); // this map is actually at a reduced size
 	ofDrawBitmapStringHighlight("Application : " + ofToString(ofGetFrameRate()) + "fps", 650, 500);
 	ofDrawBitmapStringHighlight("Device : " + ofToString(this->astra.getFrameRate()) + "fps", 650, 530);
+	ofDrawBitmapStringHighlight("Showing probability field for label : " + ofToString(this->labelIndex), 650, 560);
 }
 
 //--------------------------------------------------------------
@@ -67,7 +72,7 @@ void ofApp::keyReleased(int key){
 
 //--------------------------------------------------------------
 void ofApp::mouseMoved(int x, int y ){
-
+	this->labelIndex = float(x) / ofGetWidth() * 20.0f;
 }
 
 //--------------------------------------------------------------

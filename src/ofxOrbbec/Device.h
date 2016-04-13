@@ -46,6 +46,16 @@ namespace ofxOrbbec {
 		shared_ptr<Streams::Skeleton> initSkeleton();
 		
 		template<typename StreamType>
+		bool has() {
+			for (auto stream : this->streams) {
+				if (dynamic_pointer_cast<StreamType>(stream)) {
+					return true;
+				}
+			}
+			return false;
+		}
+
+		template<typename StreamType>
 		void close() {
 			for (auto it = this->streams.begin(); it != this->streams.end(); ) {
 				auto typedStream = dynamic_pointer_cast<StreamType>(*it);

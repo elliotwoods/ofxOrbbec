@@ -26,4 +26,7 @@ class ofApp : public ofBaseApp{
 
 		ofTexture userMask;
 		ofTexture labels;
+
+		int labelIndex = 0;
+		ofTexture probability;
 };

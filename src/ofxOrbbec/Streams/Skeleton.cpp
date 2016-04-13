@@ -25,8 +25,10 @@ namespace ofxOrbbec {
 				ofLogError("ofxOrbbec::Streams::Skeleton") << "orbbec.classifier file is missing";
 				return;
 			}
-			this->bodyTracker = make_shared<os::body_tracker>(60.0f, 49.5, 160, 120);
-			this->bodyTracker->set_classifier(os::load_classifier(ofToDataPath("../orbbec.classifier").c_str()));
+
+			//start the body tracker at recommended resolution
+			//this function also creates the body tracker
+			this->setBodyTrackerResolution(160, 120);
 		}
 
 		//----------
@@ -59,6 +61,13 @@ namespace ofxOrbbec {
 		}
 
 		//----------
+		void Skeleton::setBodyTrackerResolution(int width, int height) {
+			this->bodyTracker = make_shared<os::body_tracker>(60.0f, 49.5, width, height);
+
+			this->bodyTracker->set_classifier(os::load_classifier(ofToDataPath("../orbbec.classifier").c_str()));
+		}
+
+		//----------
 		void Skeleton::enableUpscaling(bool enabled) {
 			this->bodyTracker->set_upscale_outputs(enabled);
 		}
@@ -76,6 +85,22 @@ namespace ofxOrbbec {
 		//----------
 		ofPixels Skeleton::getLabelsImage(bool copy) const {
 			return toOf(this->bodyTracker->labels());
+		}
+
+		//----------
+		ofPixels Skeleton::getProbabilityMap(uint8_t labelIndex, float scaleOutput) {
+			const auto & labelProbabilities = this->bodyTracker->label_probabilities();
+			
+			ofPixels pixels;
+			pixels.allocate(this->bodyTracker->width(), this->bodyTracker->height(), 1);
+			auto output = pixels.getData();
+
+			for (int i = 0; i < pixels.size(); i++) {
+				const auto & pixel = labelProbabilities[i];
+				*output++ = pixel.probability_for_label(labelIndex) * scaleOutput;
+			}
+
+			return pixels;
 		}
 
 		//----------
