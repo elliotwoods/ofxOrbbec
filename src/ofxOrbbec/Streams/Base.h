@@ -68,5 +68,5 @@ namespace ofxOrbbec {
 			ofPixels_<PixelsType> incomingPixels;
 			bool newFrameIncoming = false;
 		};
-}
+	}
 }

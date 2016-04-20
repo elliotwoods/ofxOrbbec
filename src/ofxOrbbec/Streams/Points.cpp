@@ -12,10 +12,20 @@ namespace ofxOrbbec {
 				return;
 			}
 
+			//get the vertices
 			if (this->mesh.getNumVertices() != numVertices) {
 				this->mesh.getVertices().resize(numVertices);
 			}
 			memcpy(this->mesh.getVerticesPointer(), this->pixels.getData(), numVertices * sizeof(ofVec3f));
+
+			//set the texture coordinates to depth space
+			if (this->mesh.getNumTexCoords() == 0) {
+				for (int j = 0; j < this->getHeight(); j++) {
+					for (int i = 0; i < this->getWidth(); i++) {
+						this->mesh.addTexCoord(ofVec2f(i, j));
+					}
+				}
+			}
 
 			//stitch faces. Ignore jumps > 100mm
 			const auto maxJump = 100.0f;

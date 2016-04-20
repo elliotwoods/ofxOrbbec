@@ -6,6 +6,11 @@ namespace ofxOrbbec {
 	namespace Streams {
 		class Depth : public TemplateBaseImage<astra::depthstream, astra::depthframe, unsigned short> {
 		public:
+			void init(astra::stream_reader & streamReader) override {
+				TemplateBaseImage<astra::depthstream, astra::depthframe, unsigned short>::init(streamReader);
+				this->stream->enable_mirroring(false);
+			}
+
 			string getTypeName() const override {
 				return "Depth";
 			}

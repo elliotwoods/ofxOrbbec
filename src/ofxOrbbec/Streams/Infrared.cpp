@@ -15,6 +15,8 @@ namespace ofxOrbbec {
 				this->stream->set_mode(irMode);
 			}
 
+			this->stream->enable_mirroring(false);
+
 			this->stream->start();
 		}
 	}
